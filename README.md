@@ -19,6 +19,7 @@ mkdir DB
 ```
 cp docker-compose-sample.yml docker-compose.yml
 cp env-sample .env
+cp ./web/.env.example ./web/.env
 ```
 
 ## 啟動 docker
