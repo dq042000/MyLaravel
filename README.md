@@ -33,6 +33,18 @@ docker-compose up -d --build
 docker exec -ti mylaravel_php_1 composer install
 ```
 
+## 設定 Laravel
+1. 權限
+```
+sudo chmod -R 777 ./web/bootstrap/cache/ ./web/storage/
+```
+
+2. 設定 config
+```
+vi ./web/config/app.php
+vi ./web/config/database.php
+```
+
 ## 開啟瀏覽器
 
     網站
