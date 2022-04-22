@@ -9,6 +9,11 @@
   git checkout develop
 ```
 
+## db 設定
+```
+mkdir DB
+```
+
 ## docker 設定檔
 
 ```
