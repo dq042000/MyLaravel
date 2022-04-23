@@ -5,6 +5,15 @@ services:
     image: memcached
     ports:
       - '11211'
+
+  redis:
+    image: redis
+    command: redis-server --requirepass cs-pass
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./DB/radis:/data
+
   php:
     image: dq042000/php-fpm-7.3.27
     volumes:

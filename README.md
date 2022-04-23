@@ -1,5 +1,24 @@
 # 安裝方式
 
+## 設定 hosts
+
+  - 打開 Terminal
+```
+  sudo vi /etc/hosts
+```
+
+  - 增加
+
+```
+  127.0.0.1		mybook.tw
+```
+
+  - 按下 `Esc` 鍵後，儲存後離開
+```
+  按下 鍵盤 `Esc` 鍵
+  :wq
+```
+
 ## 切換開發環境分支
 
   - master
