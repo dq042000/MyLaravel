@@ -5,6 +5,9 @@ services:
     image: memcached
     ports:
       - '11211'
+    networks:
+      default:
+        ipv4_address: 172.18.0.6
 
   redis:
     image: redis
@@ -13,6 +16,9 @@ services:
       - "6379:6379"
     volumes:
       - ./DB/radis:/data
+    networks:
+      default:
+        ipv4_address: 172.18.0.2
 
   php:
     image: dq042000/php-fpm-7.3.27
@@ -47,11 +53,14 @@ services:
       - MARIADB_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MAX_CONNECTIONS=1024
     ports:
-      - '3306'
+      - '9812:3306'
     volumes:
       - './DB/mysql:/var/lib/mysql'
       - '.docker/mysql/conf:/etc/mysql/conf.d'
     command: mysqld --sql_mode="" --innodb-large-prefix=on --innodb-file-format=barracuda --innodb-file-per-table=on
+    networks:
+      default:
+        ipv4_address: 172.18.0.4
 
   myadmin:
     image: phpmyadmin/phpmyadmin
@@ -80,3 +89,11 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
       TZ: Asia/Taipei
+    networks:
+      default:
+        ipv4_address: 172.18.0.3
+
+networks:
+  default:
+    external:
+      name: mynet
