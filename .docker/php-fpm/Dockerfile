@@ -1269,6 +1269,12 @@ COPY ./xlaravel.pool.conf /usr/local/etc/php-fpm.d/
 
 USER root
 
+# Composer
+RUN curl https://getcomposer.org/installer > composer-setup.php \
+    && php composer-setup.php \
+    && mv composer.phar /usr/local/bin/composer \
+    && rm composer-setup.php
+
 # Clean up
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
@@ -1293,7 +1299,7 @@ RUN if [ ${INSTALL_FAKETIME} = true ]; then \
 ARG LOCALE=POSIX
 ENV LC_ALL ${LOCALE}
 
-WORKDIR /var/www
+WORKDIR /var/app
 
 CMD ["php-fpm"]
 
