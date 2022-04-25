@@ -1,3 +1,12 @@
+### 說明 ##############################################
+  # redis:      172.18.0.2
+  # mongodb:    172.18.0.3
+  # mysqldb:    172.18.0.4
+  # myadmin:    172.18.0.5
+  # memcached:  172.18.0.6
+  # nginx:      172.18.0.7
+  # php-fpm:    172.18.0.8
+
 version: '3.3'
 
 services:
@@ -128,6 +137,9 @@ services:
       - "${PHP_FPM_XDEBUG_PORT}:9000"
     environment:
       TZ: Asia/Taipei
+    networks:
+      backend:
+        ipv4_address: 172.18.0.8
 
 ### NGINX Server ##############################################
   nginx:
@@ -140,6 +152,9 @@ services:
       - php-fpm
     volumes:
       - ./web:/var/app
+    networks:
+      backend:
+        ipv4_address: 172.18.0.7
 
 ### MySQL ##############################################
   mysqldb:
@@ -148,13 +163,14 @@ services:
     env_file:
       - '.env'
     environment:
+      - TZ=${WORKSPACE_TIMEZONE}
       - MARIADB_USER=${MYSQL_USER}
       - MARIADB_ROOT_USER=${MYSQL_USER}
       - MARIADB_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MARIADB_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MAX_CONNECTIONS=1024
     ports:
-      - '3306'
+      - "${MYSQL_PORT}:3306"
     volumes:
       - ${DATA_PATH_HOST}/mysql:/var/lib/mysql
       - '.docker/mysql/conf:/etc/mysql/conf.d'
@@ -179,6 +195,9 @@ services:
       - '9811:80'
     depends_on:
       - mysqldb
+    networks:
+      backend:
+        ipv4_address: 172.18.0.5
 
 ### MongoDB ##############################################
   mongodb:
