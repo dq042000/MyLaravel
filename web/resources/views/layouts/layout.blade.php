@@ -1,18 +1,14 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>My Laravel - @yield('title')</title>
-    <style>
-        .login_right {
-            position: absolute;
-            right: 0px;
-            width: 300px;
-            border: 3px solid #73AD21;
-            padding: 10px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}?v=20220503.1">
     @yield('style')
     @yield('script')
+    <title>My Laravel - @yield('title')</title>
 </head>
 
 <body>
