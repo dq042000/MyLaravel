@@ -20,9 +20,10 @@
       @yield("main")
     </div>
     <div class="footer w-100">
-        <div class="text-center" style="height: 100px;line-height: 100px; background: yellow">頁尾版權</div>
+      <div class="text-center" style="height: 100px;line-height: 100px; background: yellow">頁尾版權</div>
     </div>
   </div>
+  <div id="modal"></div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
