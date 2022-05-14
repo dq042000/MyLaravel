@@ -23,7 +23,7 @@ Route::view('/', 'home');
 //     Route::view('/ad', 'backend.ad');
 // });
 
-Route::view('/admin', 'backend');
+Route::view('/admin', 'backend.module', ['header' => '網站標題管理', 'module' => 'Title']);
 Route::get('/admin/{module}', function ($module) {
     switch ($module) {
         case "title":
@@ -57,6 +57,34 @@ Route::get('/admin/{module}', function ($module) {
 });
 
 // modals
-Route::view('/modals/addTitle', 'modals.base_modal', ['modal_header' => '新增網站標題']);
-Route::view('/modals/addAd', 'modals.base_modal', ['modal_header' => '新增動態廣告文字']);
-Route::view('/modals/addImage', 'modals.base_modal', ['modal_header' => '新增校園映像圖片']);
+Route::get('/modals/{module}', function ($module) {
+    switch ($module) {
+        case "addTitle":
+            return view('modals.base_modal', ['modal_header' => '新增網站標題']);
+            break;
+        case "addAd":
+            return view('modals.base_modal', ['modal_header' => '新增動態廣告文字']);
+            break;
+        case "addImage":
+            return view('modals.base_modal', ['modal_header' => '新增校園映像圖片']);
+            break;
+        case "addMvim":
+            return view('modals.base_modal', ['modal_header' => '新增動畫圖片']);
+            break;
+        case "addTotal":
+            return view('modals.base_modal', ['modal_header' => '新增進站人數']);
+            break;
+        case "addBottom":
+            return view('modals.base_modal', ['modal_header' => '新增頁尾版權']);
+            break;
+        case "addNews":
+            return view('modals.base_modal', ['modal_header' => '新增最新消息']);
+            break;
+        case "addAdmin":
+            return view('modals.base_modal', ['modal_header' => '新增管理者']);
+            break;
+        case "addMenu":
+            return view('modals.base_modal', ['modal_header' => '新增選單']);
+            break;
+    }
+});
