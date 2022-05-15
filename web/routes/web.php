@@ -23,7 +23,9 @@ Route::view('/', 'home');
 //     Route::view('/ad', 'backend.ad');
 // });
 
-Route::view('/admin', 'backend.module', ['header' => '網站標題管理', 'module' => 'Title']);
+// redirect: 自動導向
+Route::redirect('/admin', '/admin/title');
+
 Route::get('/admin/{module}', function ($module) {
     switch ($module) {
         case "title":
