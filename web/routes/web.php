@@ -1,5 +1,14 @@
 <?php
 
+use App\Http\Controllers\AdController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BottomController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\MvimController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\TitleController;
+use App\Http\Controllers\TotalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,47 +24,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home');
 
-// // 只要是admin進來的(url: http://localhost/admin)
-// Route::prefix('admin')->group(function () {
-//     // 接在admin之後的(url: http://localhost/admin/title)
-//     Route::view('/', 'backend.title');
-//     Route::view('/title', 'backend.title');
-//     Route::view('/ad', 'backend.ad');
-// });
-
 // redirect: 自動導向
 Route::redirect('/admin', '/admin/title');
 
-Route::get('/admin/{module}', function ($module) {
-    switch ($module) {
-        case "title":
-            return view('backend.module', ['header' => '網站標題管理', 'module' => 'Title']);
-            break;
-        case "ad":
-            return view('backend.module', ['header' => '動態廣告文字管理', 'module' => 'Ad']);
-            break;
-        case "image":
-            return view('backend.module', ['header' => '校園映像圖片管理', 'module' => 'Image']);
-            break;
-        case "mvim":
-            return view('backend.module', ['header' => '動畫圖片管理', 'module' => 'Mvim']);
-            break;
-        case "total":
-            return view('backend.module', ['header' => '進站人數管理', 'module' => 'Total']);
-            break;
-        case "bottom":
-            return view('backend.module', ['header' => '頁尾版權管理', 'module' => 'Bottom']);
-            break;
-        case "news":
-            return view('backend.module', ['header' => '最新消息管理', 'module' => 'News']);
-            break;
-        case "admin":
-            return view('backend.module', ['header' => '管理者管理', 'module' => 'Admin']);
-            break;
-        case "menu":
-            return view('backend.module', ['header' => '選單管理', 'module' => 'Menu']);
-            break;
-    }
+// 群組
+Route::prefix('admin')->group(function () {
+    Route::get('/title', [TitleController::class, 'index']);
+    Route::get('/ad', [AdController::class, 'index']);
+    Route::get('/image', [ImageController::class, 'index']);
+    Route::get('/mvim', [MvimController::class, 'index']);
+    Route::get('/total', [TotalController::class, 'index']);
+    Route::get('/bottom', [BottomController::class, 'index']);
+    Route::get('/news', [NewsController::class, 'index']);
+    Route::get('/admin', [AdminController::class, 'index']);
+    Route::get('/menu', [MenuController::class, 'index']);
 });
 
 // modals
