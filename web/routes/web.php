@@ -27,8 +27,9 @@ Route::view('/', 'home');
 // redirect: 自動導向
 Route::redirect('/admin', '/admin/title');
 
-// 群組
+// 後台管理群組
 Route::prefix('admin')->group(function () {
+    // get
     Route::get('/title', [TitleController::class, 'index']);
     Route::get('/ad', [AdController::class, 'index']);
     Route::get('/image', [ImageController::class, 'index']);
@@ -38,37 +39,26 @@ Route::prefix('admin')->group(function () {
     Route::get('/news', [NewsController::class, 'index']);
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/menu', [MenuController::class, 'index']);
+
+    // post
+    Route::post('/title', [TitleController::class, 'store']);
+    Route::post('/ad', [AdController::class, 'store']);
+    Route::post('/image', [ImageController::class, 'store']);
+    Route::post('/mvim', [MvimController::class, 'store']);
+    Route::post('/news', [NewsController::class, 'store']);
+    Route::post('/admin', [AdminController::class, 'store']);
+    Route::post('/menu', [MenuController::class, 'index']);
 });
 
-// modals
-Route::get('/modals/{module}', function ($module) {
-    switch ($module) {
-        case "addTitle":
-            return view('modals.base_modal', ['modal_header' => '新增網站標題']);
-            break;
-        case "addAd":
-            return view('modals.base_modal', ['modal_header' => '新增動態廣告文字']);
-            break;
-        case "addImage":
-            return view('modals.base_modal', ['modal_header' => '新增校園映像圖片']);
-            break;
-        case "addMvim":
-            return view('modals.base_modal', ['modal_header' => '新增動畫圖片']);
-            break;
-        case "addTotal":
-            return view('modals.base_modal', ['modal_header' => '新增進站人數']);
-            break;
-        case "addBottom":
-            return view('modals.base_modal', ['modal_header' => '新增頁尾版權']);
-            break;
-        case "addNews":
-            return view('modals.base_modal', ['modal_header' => '新增最新消息']);
-            break;
-        case "addAdmin":
-            return view('modals.base_modal', ['modal_header' => '新增管理者']);
-            break;
-        case "addMenu":
-            return view('modals.base_modal', ['modal_header' => '新增選單']);
-            break;
-    }
+// modals群組
+Route::prefix('modals')->group(function () {
+    Route::get('/addTitle', [TitleController::class, 'create']);
+    Route::get('/addAd', [AdController::class, 'create']);
+    Route::get('/addImage', [ImageController::class, 'create']);
+    Route::get('/addMvim', [MvimController::class, 'create']);
+    Route::get('/addTotal', [TotalController::class, 'create']);
+    Route::get('/addBottom', [BottomController::class, 'create']);
+    Route::get('/addNews', [NewsController::class, 'create']);
+    Route::get('/addAdmin', [AdminController::class, 'create']);
+    Route::get('/addMenu', [MenuController::class, 'create']);
 });

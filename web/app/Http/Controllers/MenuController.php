@@ -25,6 +25,7 @@ class MenuController extends Controller
     public function create()
     {
         //
+        return view('modals.base_modal', ['modal_header' => '新增選單']);
     }
 
     /**
