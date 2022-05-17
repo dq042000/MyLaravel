@@ -11,6 +11,9 @@
         </div>
         <div class="modal-body">
           @csrf
+          @isset($method)
+            @method($method)
+          @endisset
           <table class="m-auto">
             @isset($modal_body)
             @foreach ($modal_body as $row)
@@ -19,8 +22,13 @@
               <td>
                 @switch($row['tag'])
                 @case('input')
-                @include('layouts.input', $row)
+                  @include('layouts.input', $row)
                 @break
+                
+                @case('img')
+                  @include('layouts.img', $row)
+                @break
+
                 @case('textarea')
 
                 @break
