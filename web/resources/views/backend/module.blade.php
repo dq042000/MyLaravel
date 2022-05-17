@@ -23,9 +23,10 @@
       <tr>
         <td><img src="{{ asset('storage/'.$row->img) }}" style="width:300px;height:30px" alt=""></td>
         <td>{{ $row->text }}</td>
-        <td><button class="btn btn-success btn-sm" data-id="{{ $row->id }}">@if($row->sh == 1)顯示 @else 隱藏 @endif</button></td>
+        <td><button class="btn btn-success btn-sm" data-id="{{ $row->id }}">@if($row->sh == 1)顯示 @else 隱藏
+            @endif</button></td>
         <td><button class="btn btn-danger btn-sm" data-id="{{ $row->id }}">刪除</button></td>
-        <td><button class="btn btn-info btn-sm" data-id="{{ $row->id }}">編輯</button></td>
+        <td><button class="btn btn-info btn-sm edit" data-id="{{ $row->id }}">編輯</button></td>
       </tr>
       @endforeach
       @endisset
@@ -38,8 +39,22 @@
 @section('script')
 <script>
   $('#addRow').on('click', function() {
-      $.get('/modals/add{{ $module }}', function(modal) {
-        $('#modal').html(modal);
+    $.get('/modals/add{{ $module }}', function(modal) {
+      $('#modal').html(modal);
+      $('#baseModal').modal('show');
+
+      // 取消modal時，一併清除modal html資料
+      $('#baseModal').on('hidden.bs.modal', function() {
+        $('#baseModal').modal('dispose');
+        $('#modal').html('');
+      });
+    });
+  });
+
+  $('.edit').on('click', function() {
+    let id = $(this).data('id');
+    $.get(`/modals/title/${id}`, function(modal) {
+      $('#modal').html(modal);
         $('#baseModal').modal('show');
 
         // 取消modal時，一併清除modal html資料
@@ -47,7 +62,7 @@
           $('#baseModal').modal('dispose');
           $('#modal').html('');
         });
-      });
     });
+  });
 </script>
 @endsection

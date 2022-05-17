@@ -87,6 +87,8 @@ class TitleController extends Controller
     public function edit($id)
     {
         //
+        $title = Title::find($id);
+
     }
 
     /**

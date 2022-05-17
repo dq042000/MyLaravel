@@ -62,3 +62,6 @@ Route::prefix('modals')->group(function () {
     Route::get('/addAdmin', [AdminController::class, 'create']);
     Route::get('/addMenu', [MenuController::class, 'create']);
 });
+
+// edit
+Route::get('/modals/title/{id}', [TitleController::class, 'edit']);
