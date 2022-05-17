@@ -58,13 +58,10 @@ class TitleController extends Controller
     {
         //
         if ($request->hasFile('img') and $request->file('img')->isValid()) {
-            $filename = $request->file('img')->getClientOriginalName();
-            $request->file('img')->storeAs('public', $filename);
-            $text = $request->input('text');
-
             $title = new Title();
-            $title->img = $filename;
-            $title->text = $text;
+            $request->file('img')->storeAs('public', $request->file('img')->getClientOriginalName());
+            $title->img = $request->file('img')->getClientOriginalName();
+            $title->text = $request->input('text');
             $title->save();
         }
         return redirect('/admin/title');
