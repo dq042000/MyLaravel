@@ -67,7 +67,7 @@
 
   $('.edit').on('click', function() {
     let id = $(this).data('id');
-    $.get(`/modals/title/${id}`, function(modal) {
+    $.get(`/modals/{{ strtolower($module) }}/${id}`, function(modal) {
       $('#modal').html(modal);
         $('#baseModal').modal('show');
 
@@ -83,7 +83,7 @@
     let id = $(this).data('id');
     $.ajax({
       type: 'delete',
-      url: `/admin/title/${id}`,
+      url: `/admin/{{ strtolower($module) }}/${id}`,
       success: function () {
         location.reload();
       }
@@ -94,7 +94,7 @@
     let id = $(this).data('id');
     $.ajax({
       type: 'patch',
-      url: `/admin/title/sh/${id}`,
+      url: `/admin/{{ strtolower($module) }}/sh/${id}`,
       success: function () {
         location.reload();
       }
