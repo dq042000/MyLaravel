@@ -7,36 +7,48 @@
   <button class="col-4 btn btn-light border py-3 text-center">管理登出</button>
   <div class="border w-100 p-1" style="height: 500px">
     <h5 class="text-center border-bottom py-3">
-      <button class="btn btn-sm btn-primary float-left" id="addRow">新增</button>
+      @if ($module != 'Total' && $module != 'Bottom')
+          <button class="btn btn-sm btn-primary float-left" id="addRow">新增</button>
+      @endif
       {{ $header }}
     </h5>
     <table class="table border-none text-center">
       <tr>
         @isset($cols)
-            @foreach ($cols as $col)
-                <td>{{ $col }}</td>
-            @endforeach
+            @if ($module != 'Total' && $module != 'Bottom')
+                @foreach ($cols as $col)
+                    <td>{{ $col }}</td>
+                @endforeach
+            @endif
         @endisset
       </tr>
       @isset($rows)
-      @foreach ($rows as $row)
-      <tr>
-          @foreach ($row as $item)
-              <td>
-                  @switch($item['tag'])
-                      @case('img')
-                          @include('layouts.img', $item)
-                          @break
-                      @case('button')
-                          @include('layouts.button', $item)
-                          @break
-                      @default
-                          {{ $item['text'] }}
-                  @endswitch
-              </td>
-          @endforeach
-      </tr>
-      @endforeach
+          @if ($module != 'Total' && $module != 'Bottom')
+              @foreach ($rows as $row)
+              <tr>
+                  @foreach ($row as $item)
+                      <td>
+                          @switch($item['tag'])
+                              @case('img')
+                                  @include('layouts.img', $item)
+                                  @break
+                              @case('button')
+                                  @include('layouts.button', $item)
+                                  @break
+                              @default
+                                  {{ $item['text'] }}
+                          @endswitch
+                      </td>
+                  @endforeach
+              </tr>
+              @endforeach
+          @else
+              <tr>
+                <td>{{ $cols[0] }}</td>
+                <td>{{ $rows[0]['text'] }}</td>
+                <td>@include('layouts.button', $rows[1])</td>
+              </tr>
+          @endif
       @endisset
     </table>
   </div>

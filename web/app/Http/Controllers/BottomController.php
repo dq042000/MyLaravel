@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Bottom;
 
 class BottomController extends Controller
 {
@@ -14,73 +14,28 @@ class BottomController extends Controller
     public function index()
     {
         //
-        return view('backend.module', ['header' => '頁尾版權管理', 'module' => 'Bottom']);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-        return view('modals.base_modal', ['modal_header' => '新增頁尾版權']);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $bottom = Bottom::first();
+        $cols = ['頁尾版權文字'];
+        $rows = [
+            [
+                'tag' => '',
+                'text' => $bottom->bottom,
+            ],
+            [
+                'tag' => 'button',
+                'type' => 'button',
+                'btn_color' => 'btn-info',
+                'action' => 'edit',
+                'id' => $bottom->id,
+                'text' => '編輯',
+            ],
+        ];
+        $view = [
+            'header' => '頁尾版權管理',
+            'module' => 'Bottom',
+            'cols' => $cols,
+            'rows' => $rows,
+        ];
+        return view('backend.module', $view);
     }
 }

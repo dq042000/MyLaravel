@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Total;
 
 class TotalController extends Controller
 {
@@ -14,73 +14,28 @@ class TotalController extends Controller
     public function index()
     {
         //
-        return view('backend.module', ['header' => '進站人數管理', 'module' => 'Total']);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-        return view('modals.base_modal', ['modal_header' => '新增進站人數']);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $total = Total::first();
+        $cols = ['進站總人數'];
+        $rows = [
+            [
+                'tag' => '',
+                'text' => $total->total,
+            ],
+            [
+                'tag' => 'button',
+                'type' => 'button',
+                'btn_color' => 'btn-info',
+                'action' => 'edit',
+                'id' => $total->id,
+                'text' => '編輯',
+            ],
+        ];
+        $view = [
+            'header' => '進站人數管理',
+            'module' => 'Total',
+            'cols' => $cols,
+            'rows' => $rows,
+        ];
+        return view('backend.module', $view);
     }
 }
