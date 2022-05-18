@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Total;
+use Illuminate\Http\Request;
 
 class TotalController extends Controller
 {
@@ -37,5 +38,45 @@ class TotalController extends Controller
             'rows' => $rows,
         ];
         return view('backend.module', $view);
+    }
+
+    public function edit($id)
+    {
+        //
+        $total = Total::find($id);
+        $view = [
+            'action' => '/admin/total/' . $id,
+            'method' => 'patch',
+            'modal_header' => '編輯進站總人數',
+            'modal_body' => [
+                [
+                    'label' => '進站總人數',
+                    'tag' => 'input',
+                    'type' => 'number',
+                    'name' => 'total',
+                    'value' => $total->text,
+                ],
+            ],
+        ];
+        return view('modals.base_modal', $view);
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+        $total = Total::find($id);
+        if ($total->total != $request->input('total')) {
+            $total->total = $request->input('total');
+            $total->save();
+        }
+        return redirect('/admin/total');
     }
 }

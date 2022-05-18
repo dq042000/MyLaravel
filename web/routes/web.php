@@ -39,6 +39,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/news', [NewsController::class, 'index']);
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/menu', [MenuController::class, 'index']);
+    Route::get('/submenu', [SubMenuController::class, 'index']);
 
     // post
     Route::post('/title', [TitleController::class, 'store']);
@@ -47,19 +48,38 @@ Route::prefix('admin')->group(function () {
     Route::post('/mvim', [MvimController::class, 'store']);
     Route::post('/news', [NewsController::class, 'store']);
     Route::post('/admin', [AdminController::class, 'store']);
-    Route::post('/menu', [MenuController::class, 'index']);
+    Route::post('/menu', [MenuController::class, 'store']);
+    Route::post('/submenu', [SubMenuController::class, 'store']);
 
     // update
     Route::patch('/title/{id}', [TitleController::class, 'update']);
     Route::patch('/ad/{id}', [AdController::class, 'update']);
+    Route::patch('/image/{id}', [ImageController::class, 'update']);
+    Route::patch('/mvim/{id}', [MvimController::class, 'update']);
+    Route::patch('/total/{id}', [TotalController::class, 'update']);
+    Route::patch('/bottom/{id}', [BottomController::class, 'update']);
+    Route::patch('/news/{id}', [NewsController::class, 'update']);
+    Route::patch('/admin/{id}', [AdminController::class, 'update']);
+    Route::patch('/menu/{id}', [MenuController::class, 'update']);
+    Route::patch('/submenu/{id}', [SubMenuController::class, 'update']);
 
     // delete
     Route::delete('/title/{id}', [TitleController::class, 'destroy']);
     Route::delete('/ad/{id}', [AdController::class, 'destroy']);
+    Route::delete('/image/{id}', [ImageController::class, 'destroy']);
+    Route::delete('/mvim/{id}', [MvimController::class, 'destroy']);
+    Route::delete('/news/{id}', [NewsController::class, 'destroy']);
+    Route::delete('/admin/{id}', [AdminController::class, 'destroy']);
+    Route::delete('/menu/{id}', [MenuController::class, 'destroy']);
+    Route::delete('/submenu/{id}', [SubMenuController::class, 'destroy']);
 
     // show
     Route::patch('/title/sh/{id}', [TitleController::class, 'display']);
     Route::patch('/ad/sh/{id}', [AdController::class, 'display']);
+    Route::patch('/image/sh/{id}', [ImageController::class, 'display']);
+    Route::patch('/mvim/sh/{id}', [MvimController::class, 'display']);
+    Route::patch('/news/sh/{id}', [NewsController::class, 'display']);
+    Route::patch('/menu/sh/{id}', [MenuController::class, 'display']);
 });
 
 // modals群組
@@ -68,13 +88,20 @@ Route::prefix('modals')->group(function () {
     Route::get('/addAd', [AdController::class, 'create']);
     Route::get('/addImage', [ImageController::class, 'create']);
     Route::get('/addMvim', [MvimController::class, 'create']);
-    Route::get('/addTotal', [TotalController::class, 'create']);
-    Route::get('/addBottom', [BottomController::class, 'create']);
     Route::get('/addNews', [NewsController::class, 'create']);
     Route::get('/addAdmin', [AdminController::class, 'create']);
     Route::get('/addMenu', [MenuController::class, 'create']);
-});
+    Route::get('/addSubMenu', [SubMenuController::class, 'create']);
 
-// edit
-Route::get('/modals/title/{id}', [TitleController::class, 'edit']);
-Route::get('/modals/ad/{id}', [AdController::class, 'edit']);
+    // edit
+    Route::get('/title/{id}', [TitleController::class, 'edit']);
+    Route::get('/ad/{id}', [AdController::class, 'edit']);
+    Route::get('/image/{id}', [ImageController::class, 'edit']);
+    Route::get('/mvim/{id}', [MvimController::class, 'edit']);
+    Route::get('/total/{id}', [TotalController::class, 'edit']);
+    Route::get('/bottom/{id}', [BottomController::class, 'edit']);
+    Route::get('/news/{id}', [NewsController::class, 'edit']);
+    Route::get('/admin/{id}', [AdminController::class, 'edit']);
+    Route::get('/menu/{id}', [MenuController::class, 'edit']);
+    Route::get('/submenu/{id}', [SubMenuController::class, 'edit']);
+});
