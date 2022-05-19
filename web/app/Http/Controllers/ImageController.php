@@ -57,6 +57,7 @@ class ImageController extends Controller
             'module' => 'Image',
             'cols' => $cols,
             'rows' => $rows,
+            'useTitle' => $this->useTitle,
         ];
         return view('backend.module', $view);
     }

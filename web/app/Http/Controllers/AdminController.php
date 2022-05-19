@@ -53,6 +53,7 @@ class AdminController extends Controller
             'module' => 'Admin',
             'cols' => $cols,
             'rows' => $rows,
+            'useTitle' => $this->useTitle,
         ];
         return view('backend.module', $view);
     }

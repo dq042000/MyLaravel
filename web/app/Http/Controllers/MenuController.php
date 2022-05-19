@@ -71,6 +71,7 @@ class MenuController extends Controller
         $this->view['module'] = 'Menu';
         $this->view['cols'] = $cols;
         $this->view['rows'] = $rows;
+        $this->view['useTitle'] = $this->useTitle;
         return view('backend.module', $this->view);
     }
 

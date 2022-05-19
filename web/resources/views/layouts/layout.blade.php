@@ -15,7 +15,9 @@
 <body>
   <div class="container">
     <div class="header w-100">
-      <img src="{{ asset('imgs/01B01.jpg') }}" alt="" class="w-100">
+      @isset($useTitle)
+        <img src="{{ asset('storage/' . $useTitle->img) }}" alt="" class="w-100">
+      @endisset
     </div>
     <div class="main d-flex" style="height: 568px">
       @yield("main")

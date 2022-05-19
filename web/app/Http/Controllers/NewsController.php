@@ -56,6 +56,7 @@ class NewsController extends Controller
             'module' => 'News',
             'cols' => $cols,
             'rows' => $rows,
+            'useTitle' => $this->useTitle,
         ];
         return view('backend.module', $view);
     }

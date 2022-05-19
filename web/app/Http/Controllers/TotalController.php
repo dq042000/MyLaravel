@@ -36,6 +36,7 @@ class TotalController extends Controller
             'module' => 'Total',
             'cols' => $cols,
             'rows' => $rows,
+            'useTitle' => $this->useTitle,
         ];
         return view('backend.module', $view);
     }
