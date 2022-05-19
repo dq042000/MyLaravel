@@ -38,6 +38,9 @@
                               @case('embed')
                                   @include('layouts.embed', $item)
                                   @break
+                              @case('textarea')
+                                  @include('layouts.textarea', $item)
+                                  @break
                               @default
                                   {!! nl2br($item['text']) !!}
                           @endswitch
