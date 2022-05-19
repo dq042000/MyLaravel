@@ -71,16 +71,29 @@
   });
 
   $('#addRow').on('click', function() {
-    $.get('/modals/add{{ $module }}', function(modal) {
-      $('#modal').html(modal);
-      $('#baseModal').modal('show');
+    @isset($menu_id)
+      $.get('/modals/add{{ $module }}/{{ $menu_id }}', function(modal) {
+        $('#modal').html(modal);
+        $('#baseModal').modal('show');
 
-      // 取消modal時，一併清除modal html資料
-      $('#baseModal').on('hidden.bs.modal', function() {
-        $('#baseModal').modal('dispose');
-        $('#modal').html('');
+        // 取消modal時，一併清除modal html資料
+        $('#baseModal').on('hidden.bs.modal', function() {
+          $('#baseModal').modal('dispose');
+          $('#modal').html('');
+        });
       });
-    });
+    @else
+      $.get('/modals/add{{ $module }}', function(modal) {
+        $('#modal').html(modal);
+        $('#baseModal').modal('show');
+
+        // 取消modal時，一併清除modal html資料
+        $('#baseModal').on('hidden.bs.modal', function() {
+          $('#baseModal').modal('dispose');
+          $('#modal').html('');
+        });
+      });
+    @endif
   });
 
   $('.edit').on('click', function() {

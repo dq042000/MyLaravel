@@ -60,10 +60,28 @@ class SubMenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($menu_id)
     {
         //
-        return view('modals.base_modal', ['modal_header' => '新增選單']);
+        $view = [
+            'action' => '/admin/submenu/' . $menu_id,
+            'modal_header' => "新增次選單",
+            'modal_body' => [
+                [
+                    'label' => '次選單名稱',
+                    'tag' => 'input',
+                    'type' => 'text',
+                    'name' => 'text',
+                ],
+                [
+                    'label' => '次選單連結網址',
+                    'tag' => 'input',
+                    'type' => 'text',
+                    'name' => 'href',
+                ],
+            ],
+        ];
+        return view("modals.base_modal", $view);
     }
 
     /**
@@ -72,9 +90,15 @@ class SubMenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $menu_id)
     {
         //
+        $sub = new SubMenu;
+        $sub->text = $request->input('text');
+        $sub->href = $request->input('href');
+        $sub->menu_id = $menu_id;
+        $sub->save();
+        return redirect('/admin/submenu/' . $menu_id);
     }
 
     /**
@@ -97,6 +121,29 @@ class SubMenuController extends Controller
     public function edit($id)
     {
         //
+        $sub = SubMenu::find($id);
+        $view = [
+            'action' => '/admin/submenu/' . $id,
+            'method' => 'PATCH',
+            'modal_header' => "編輯次選單內容",
+            'modal_body' => [
+                [
+                    'label' => '次選單名稱',
+                    'tag' => 'input',
+                    'type' => 'text',
+                    'name' => 'text',
+                    'value' => $sub->text,
+                ],
+                [
+                    'label' => '次選單連結網址',
+                    'tag' => 'input',
+                    'type' => 'text',
+                    'name' => 'href',
+                    'value' => $sub->href,
+                ],
+            ],
+        ];
+        return view("modals.base_modal", $view);
     }
 
     /**
@@ -109,6 +156,15 @@ class SubMenuController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $sub = SubMenu::find($id);
+        if ($sub->text != $request->input('text')) {
+            $sub->text = $request->input('text');
+        }
+        if ($sub->href != $request->input('href')) {
+            $sub->href = $request->input('href');
+        }
+        $sub->save();
+        return redirect('/admin/submenu/' . $sub->menu_id);
     }
 
     /**
@@ -120,5 +176,6 @@ class SubMenuController extends Controller
     public function destroy($id)
     {
         //
+        SubMenu::destroy($id);
     }
 }

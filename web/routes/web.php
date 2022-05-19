@@ -50,7 +50,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/news', [NewsController::class, 'store']);
     Route::post('/admin', [AdminController::class, 'store']);
     Route::post('/menu', [MenuController::class, 'store']);
-    Route::post('/submenu', [SubMenuController::class, 'store']);
+    Route::post('/submenu/{menu_id}', [SubMenuController::class, 'store']);
 
     // update
     Route::patch('/title/{id}', [TitleController::class, 'update']);
@@ -92,7 +92,7 @@ Route::prefix('modals')->group(function () {
     Route::get('/addNews', [NewsController::class, 'create']);
     Route::get('/addAdmin', [AdminController::class, 'create']);
     Route::get('/addMenu', [MenuController::class, 'create']);
-    Route::get('/addSubMenu', [SubMenuController::class, 'create']);
+    Route::get('/addSubMenu/{menu_id}', [SubMenuController::class, 'create']);
 
     // edit
     Route::get('/title/{id}', [TitleController::class, 'edit']);
