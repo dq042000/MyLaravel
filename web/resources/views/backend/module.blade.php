@@ -124,5 +124,10 @@
       }
     });
   });
+
+$('.sub').on('click', function() {
+  let id = $(this).data('id');
+  location.href = `/admin/submenu/${id}`;
+});
 </script>
 @endsection

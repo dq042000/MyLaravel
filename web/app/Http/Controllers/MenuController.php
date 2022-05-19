@@ -30,7 +30,7 @@ class MenuController extends Controller
                 ],
                 [
                     'tag' => '',
-                    'text' => 0,
+                    'text' => $a->subs()->count(),
                 ],
                 [
                     'tag' => 'button',

@@ -7,6 +7,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MvimController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\SubMenuController;
 use App\Http\Controllers\TitleController;
 use App\Http\Controllers\TotalController;
 use Illuminate\Support\Facades\Route;
@@ -39,7 +40,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/news', [NewsController::class, 'index']);
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/menu', [MenuController::class, 'index']);
-    Route::get('/submenu', [SubMenuController::class, 'index']);
+    Route::get('/submenu/{menu_id}', [SubMenuController::class, 'index']);
 
     // post
     Route::post('/title', [TitleController::class, 'store']);

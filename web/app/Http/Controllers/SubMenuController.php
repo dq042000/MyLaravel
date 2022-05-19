@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SubMenu;
 use Illuminate\Http\Request;
 
 class SubMenuController extends Controller
@@ -11,10 +12,47 @@ class SubMenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($menu_id)
     {
         //
-        return view('backend.module', ['header' => '選單管理', 'module' => 'Menu']);
+        $all = SubMenu::where('menu_id', $menu_id)->get();
+        $cols = ['次選單名稱', '次選單連結網址', '刪除', '操作'];
+        $rows = [];
+        foreach ($all as $a) {
+            $tmp = [
+                [
+                    'tag' => '',
+                    'text' => $a->text,
+                ],
+                [
+                    'tag' => '',
+                    'text' => $a->href,
+                ],
+                [
+                    'tag' => 'button',
+                    'type' => 'button',
+                    'btn_color' => 'btn-danger',
+                    'action' => 'delete',
+                    'id' => $a->id,
+                    'text' => '刪除',
+                ],
+                [
+                    'tag' => 'button',
+                    'type' => 'button',
+                    'btn_color' => 'btn-info',
+                    'action' => 'edit',
+                    'id' => $a->id,
+                    'text' => '編輯',
+                ],
+            ];
+            $rows[] = $tmp;
+        }
+        $this->view['header'] = '次選單管理';
+        $this->view['module'] = 'SubMenu';
+        $this->view['cols'] = $cols;
+        $this->view['rows'] = $rows;
+        $this->view['menu_id'] = $menu_id;
+        return view('backend.module', $this->view);
     }
 
     /**
