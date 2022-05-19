@@ -35,8 +35,11 @@
                               @case('button')
                                   @include('layouts.button', $item)
                                   @break
+                              @case('embed')
+                                  @include('layouts.embed', $item)
+                                  @break
                               @default
-                                  {{ $item['text'] }}
+                                  {!! nl2br($item['text']) !!}
                           @endswitch
                       </td>
                   @endforeach

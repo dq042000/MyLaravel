@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mvim;
 use Illuminate\Http\Request;
 
 class MvimController extends Controller
@@ -14,7 +15,50 @@ class MvimController extends Controller
     public function index()
     {
         //
-        return view('backend.module', ['header' => '動畫圖片管理', 'module' => 'Mvim']);
+        $all = Mvim::all();
+        $cols = ['動畫圖片', '顯示', '刪除', '操作'];
+        $rows = [];
+        foreach ($all as $a) {
+            $temp = [
+                [
+                    'tag' => 'embed',
+                    'src' => $a->img,
+                    'style' => 'width:120px;height:80px',
+                ],
+                [
+                    'tag' => 'button',
+                    'type' => 'button',
+                    'btn_color' => 'btn-success',
+                    'action' => 'show',
+                    'id' => $a->id,
+                    'text' => ($a->sh == 1 ? '顯示' : '隱藏'),
+                ],
+                [
+                    'tag' => 'button',
+                    'type' => 'button',
+                    'btn_color' => 'btn-danger',
+                    'action' => 'delete',
+                    'id' => $a->id,
+                    'text' => '刪除',
+                ],
+                [
+                    'tag' => 'button',
+                    'type' => 'button',
+                    'btn_color' => 'btn-info',
+                    'action' => 'edit',
+                    'id' => $a->id,
+                    'text' => '編輯',
+                ],
+            ];
+            $rows[] = $temp;
+        }
+        $view = [
+            'header' => '動畫圖片管理',
+            'module' => 'Mvim',
+            'cols' => $cols,
+            'rows' => $rows,
+        ];
+        return view('backend.module', $view);
     }
 
     /**
@@ -25,7 +69,19 @@ class MvimController extends Controller
     public function create()
     {
         //
-        return view('modals.base_modal', ['modal_header' => '新增動畫圖片']);
+        $view = [
+            'action' => '/admin/mvim',
+            'modal_header' => '新增動畫圖片',
+            'modal_body' => [
+                [
+                    'label' => '動畫圖片',
+                    'tag' => 'input',
+                    'type' => 'file',
+                    'name' => 'img',
+                ],
+            ],
+        ];
+        return view('modals.base_modal', $view);
     }
 
     /**
@@ -37,6 +93,13 @@ class MvimController extends Controller
     public function store(Request $request)
     {
         //
+        if ($request->hasFile('img') and $request->file('img')->isValid()) {
+            $mvim = new Mvim();
+            $request->file('img')->storeAs('public', $request->file('img')->getClientOriginalName());
+            $mvim->img = $request->file('img')->getClientOriginalName();
+            $mvim->save();
+        }
+        return redirect('/admin/mvim');
     }
 
     /**
@@ -59,6 +122,28 @@ class MvimController extends Controller
     public function edit($id)
     {
         //
+        $mvim = Mvim::find($id);
+        $view = [
+            'action' => '/admin/mvim/' . $id,
+            'method' => 'patch',
+            'modal_header' => '編輯動畫圖片',
+            'modal_body' => [
+                [
+                    'label' => '目前動畫',
+                    'tag' => 'img',
+                    'src' => $mvim->img,
+                    'style' => 'width:100px;height:68px',
+                ],
+                [
+                    'label' => '更換動畫圖片',
+                    'tag' => 'input',
+                    'type' => 'file',
+                    'name' => 'img',
+                ],
+            ],
+        ];
+        return view('modals.base_modal', $view);
+
     }
 
     /**
@@ -71,6 +156,27 @@ class MvimController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $image = Mvim::find($id);
+        if ($request->hasFile('img') and $request->file('img')->isValid()) {
+            // 將舊的檔案刪除
+            if (file_exists('/var/app/storage/app/public/' . $mvim->img)) {
+                unlink('/var/app/storage/app/public/' . $mvim->img);
+            }
+            $request->file('img')->storeAs('public', $request->file('img')->getClientOriginalName());
+            $mvim->img = $request->file('img')->getClientOriginalName();
+            $mvim->save();
+        }
+        return redirect('/admin/mvim');
+    }
+
+    /**
+     * 改變資料的顯示狀態
+     */
+    public function display($id)
+    {
+        $mvim = Mvim::find($id);
+        $mvim->sh = ($mvim->sh + 1) % 2;
+        $mvim->save();
     }
 
     /**
@@ -82,5 +188,6 @@ class MvimController extends Controller
     public function destroy($id)
     {
         //
+        Mvim::destroy($id);
     }
 }

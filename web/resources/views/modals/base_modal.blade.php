@@ -21,18 +21,15 @@
               <td class="text-right">{{ $row['label'] }}</td>
               <td>
                 @switch($row['tag'])
-                @case('input')
-                  @include('layouts.input', $row)
-                @break
-                
-                @case('img')
-                  @include('layouts.img', $row)
-                @break
-
-                @case('textarea')
-
-                @break
-
+                    @case('input')
+                        @include('layouts.input', $row)
+                        @break
+                    @case('img')
+                        @include('layouts.img', $row)
+                        @break
+                    @case('textarea')
+                        @include('layouts.textarea', $row)
+                        @break
                 @endswitch
               </td>
             </tr>
