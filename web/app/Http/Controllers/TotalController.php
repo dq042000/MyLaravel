@@ -31,14 +31,11 @@ class TotalController extends Controller
                 'text' => '編輯',
             ],
         ];
-        $view = [
-            'header' => '進站人數管理',
-            'module' => 'Total',
-            'cols' => $cols,
-            'rows' => $rows,
-            'useTitle' => $this->useTitle,
-        ];
-        return view('backend.module', $view);
+        $this->view['header'] = '進站人數管理';
+        $this->view['module'] = 'Total';
+        $this->view['cols'] = $cols;
+        $this->view['rows'] = $rows;
+        return view('backend.module', $this->view);
     }
 
     public function edit($id)
