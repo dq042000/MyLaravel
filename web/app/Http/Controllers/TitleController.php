@@ -56,14 +56,11 @@ class TitleController extends Controller
             ];
             $rows[] = $temp;
         }
-        $view = [
-            'header' => '網站標題管理',
-            'module' => 'Title',
-            'cols' => $cols,
-            'rows' => $rows,
-            'useTitle' => $this->useTitle,
-        ];
-        return view('backend.module', $view);
+        $this->view['header'] = '網站標題管理';
+        $this->view['module'] = 'Title';
+        $this->view['cols'] = $cols;
+        $this->view['rows'] = $rows;
+        return view('backend.module', $this->view);
     }
 
     /**

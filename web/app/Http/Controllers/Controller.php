@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bottom;
+use App\Models\Title;
+use App\Models\Total;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -13,4 +16,10 @@ class Controller extends BaseController
 
     protected $view = [];
 
+    public function __construct()
+    {
+        $this->view['title'] = Title::where('sh', 1)->first();
+        $this->view['total'] = Total::first()->total;
+        $this->view['bottom'] = Bottom::first()->bottom;
+    }
 }

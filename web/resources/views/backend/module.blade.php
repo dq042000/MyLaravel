@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('main')
-@include('layouts.backend_sidebar')
+@include('layouts.backend_sidebar', ['total' => $total])
 <div class="main col-9 p-0 d-flex flex-wrap align-items-start">
   <div class="col-8 border py-3 text-center">後台管理區</div>
   <button class="col-4 btn btn-light border py-3 text-center">管理登出</button>
