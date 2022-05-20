@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menu;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,7 +15,14 @@ class HomeController extends Controller
     public function index()
     {
         //
-        return view('home', $this->view);
+        $menus = Menu::where('sh', 1)->get();
+        foreach ($menus as $key => $menu) {
+            $subs = $menu->subs;
+            $menu->subs = $subs;
+            $menus[$key] = $menu;
+        }
+        $this->view['menus'] = $menus;
+        return view('main', $this->view);
     }
 
     /**

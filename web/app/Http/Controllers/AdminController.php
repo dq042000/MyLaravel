@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+
+    public function showLoginForm()
+    {
+        return view('login', $this->view);
+    }
+
     /**
      * Display a listing of the resource.
      *

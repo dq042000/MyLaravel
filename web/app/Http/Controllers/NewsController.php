@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
+    function list() {
+        return view('news', $this->view);
+    }
+
     /**
      * Display a listing of the resource.
      *
