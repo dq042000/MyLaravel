@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BottomController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MvimController;
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::view('/', 'home');
+Route::get('/', [HomeController::class, 'index']);
 
 // redirect: 自動導向
 Route::redirect('/admin', '/admin/title');

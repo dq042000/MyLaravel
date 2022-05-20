@@ -198,13 +198,17 @@ class TitleController extends Controller
             $title->sh = 0;
             $findDefault = Title::where('sh', 0)->first();
             $findDefault->sh = 1;
+            $findDefault->save();
+            $img = $findDefault->img;
         } else {
             $title->sh = 1;
             $findDefault = Title::where('sh', 1)->first();
             $findDefault->sh = 0;
+            $findDefault->save();
+            $img = $title->img;
         }
-        $findDefault->save();
         $title->save();
+        return $img;
     }
 
     /**
