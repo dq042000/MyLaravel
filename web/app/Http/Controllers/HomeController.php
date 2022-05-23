@@ -6,6 +6,7 @@ use App\Models\Ad;
 use App\Models\Image;
 use App\Models\Menu;
 use App\Models\Mvim;
+use App\Models\News;
 
 class HomeController extends Controller
 {
@@ -18,16 +19,23 @@ class HomeController extends Controller
     {
         //
         $this->sideBar();
-
-        $ads = implode('  ', Ad::where('sh', 1)->get()->pluck('text')->all());
         $mvims = Mvim::where('sh', 1)->get();
-        $this->view['ads'] = $ads;
+        $news = News::where('sh', 1)->get()->filter(function ($val, $idx) {
+            if ($idx > 4) {
+                $this->view['more'] = '/news';
+                return $idx;
+            } else {
+                return $val;
+            }
+        });
         $this->view['mvims'] = $mvims;
+        $this->view['news'] = $news;
         return view('main', $this->view);
     }
 
     protected function sideBar()
     {
+        $ads = implode('  ', Ad::where('sh', 1)->get()->pluck('text')->all());
         $menus = Menu::where('sh', 1)->get();
         $images = Image::where('sh', 1)->get();
         foreach ($menus as $key => $menu) {
@@ -35,6 +43,7 @@ class HomeController extends Controller
             $menu->subs = $subs;
             $menus[$key] = $menu;
         }
+        $this->view['ads'] = $ads;
         $this->view['menus'] = $menus;
         $this->view['images'] = $images;
     }

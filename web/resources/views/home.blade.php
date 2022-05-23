@@ -74,5 +74,23 @@
         }
       });
     });
+
+    $('.mv').eq(0).show();
+    let mvNum = $('.mv').length;
+    let now = 0;
+    setInterval(() => {
+      $('.mv').hide();
+      ++now;
+      $('.mv').eq(now % mvNum).show();
+    }, 3000);
+
+    $('.new').hover(
+      function () {
+        $(this).children('div').show()
+      },
+      function () {
+        $(this).children('div').hide()
+      }
+    );
   </script>
 @endsection
