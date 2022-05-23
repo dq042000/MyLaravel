@@ -52,7 +52,6 @@ class SubMenuController extends Controller
         $this->view['cols'] = $cols;
         $this->view['rows'] = $rows;
         $this->view['menu_id'] = $menu_id;
-        $this->view['useTitle'] = $this->useTitle;
         return view('backend.module', $this->view);
     }
 

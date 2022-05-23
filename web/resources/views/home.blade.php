@@ -19,8 +19,12 @@
           @endforeach
         </ul>
       @endisset
+      <div class="viewer">
+        進站總人數：{{ $total }}
+      </div>
     </div>
     <div class="main col-6">
+      <marquee>{{ $ads }}</marquee>
       @yield('center')
     </div>
     <div class="right col-3">

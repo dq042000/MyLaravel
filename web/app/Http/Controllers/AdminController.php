@@ -6,11 +6,12 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller
+class AdminController extends HomeController
 {
 
     public function showLoginForm()
     {
+        parent::sideBar(); // 繼承 HomeController::sideBar
         return view('login', $this->view);
     }
 

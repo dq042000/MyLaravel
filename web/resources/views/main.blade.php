@@ -1,5 +1,6 @@
 @extends('home')
 
 @section('center')
-    中間區塊
+  <div class="mvims"></div>
+  <div class="news"></div>
 @endsection

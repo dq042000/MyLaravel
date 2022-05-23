@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use Illuminate\Http\Request;
 
-class NewsController extends Controller
+class NewsController extends HomeController
 {
     function list() {
+        parent::sideBar(); // 繼承 HomeController::sideBar
         return view('news', $this->view);
     }
 
