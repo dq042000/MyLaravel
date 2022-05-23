@@ -8,6 +8,8 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <title>科技大學校園資訊系統 - @yield('title')</title>
 </head>
@@ -15,7 +17,7 @@
 <body>
   <div class="container">
     <div class="header w-100">
-        <img src="{{ asset('storage/' . $title->img) }}" alt="{{ $title->text }}" class="w-100">
+        <a href="/" title="{{ $title->text }}"><img src="{{ asset('storage/' . $title->img) }}" alt="{{ $title->text }}" class="w-100"></a>
     </div>
     <div class="main d-flex" style="height: 568px">
       @yield("main")

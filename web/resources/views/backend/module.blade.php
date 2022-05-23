@@ -57,6 +57,12 @@
           @endif
       @endisset
     </table>
+    @switch($module)
+      @case('Image')
+      @case('News')
+        {!! $paginate !!}
+        @break
+    @endswitch
   </div>
 </div>
 
