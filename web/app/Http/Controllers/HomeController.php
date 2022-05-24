@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\Menu;
 use App\Models\Mvim;
 use App\Models\News;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -43,6 +44,11 @@ class HomeController extends Controller
             $menu->subs = $subs;
             $menus[$key] = $menu;
         }
+
+        if (Auth::user()) {
+            $this->view['user'] = Auth::user();
+        }
+
         $this->view['ads'] = $ads;
         $this->view['menus'] = $menus;
         $this->view['images'] = $images;

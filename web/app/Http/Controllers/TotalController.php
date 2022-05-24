@@ -52,7 +52,7 @@ class TotalController extends Controller
                     'tag' => 'input',
                     'type' => 'number',
                     'name' => 'total',
-                    'value' => $total->text,
+                    'value' => $total->total,
                 ],
             ],
         ];

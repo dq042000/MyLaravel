@@ -43,6 +43,17 @@ class AdminController extends HomeController
     }
 
     /**
+     * Logout.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/login');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

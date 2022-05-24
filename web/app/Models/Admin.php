@@ -10,14 +10,4 @@ class Admin extends Authenticatable
     use HasFactory;
 
     protected $fillable = ['acc', 'password'];
-
-    /**
-     * Get the password for the user.
-     *
-     * @return string
-     */
-    // public function getAuthPassword()
-    // {
-    //     return $this->pw;
-    // }
 }

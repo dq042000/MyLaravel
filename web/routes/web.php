@@ -26,14 +26,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/news', [NewsController::class, 'list']);
-Route::get('/login', [AdminController::class, 'showLoginForm']);
+Route::get('/login', [AdminController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AdminController::class, 'login']);
+Route::get('/logout', [AdminController::class, 'logout']);
 
 // redirect: 自動導向
 Route::redirect('/admin', '/admin/title');
 
 // 後台管理群組
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
     // get
     Route::get('/title', [TitleController::class, 'index']);
     Route::get('/ad', [AdController::class, 'index']);
@@ -88,7 +89,7 @@ Route::prefix('admin')->group(function () {
 });
 
 // modals群組
-Route::prefix('modals')->group(function () {
+Route::prefix('modals')->middleware('auth')->group(function () {
     Route::get('/addTitle', [TitleController::class, 'create']);
     Route::get('/addAd', [AdController::class, 'create']);
     Route::get('/addImage', [ImageController::class, 'create']);
