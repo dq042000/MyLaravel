@@ -14,7 +14,7 @@ class EditAdminsTable extends Migration
     public function up()
     {
         Schema::table('admins', function (Blueprint $table) {
-            //
+            // 修改 pw 欄位名稱 => password
             $table->renameColumn('pw', 'password');
         });
     }
