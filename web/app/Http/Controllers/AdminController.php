@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends HomeController
@@ -13,6 +14,32 @@ class AdminController extends HomeController
     {
         parent::sideBar(); // 繼承 HomeController::sideBar
         return view('login', $this->view);
+    }
+
+    /**
+     * Login.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function login(Request $request)
+    {
+        // $acc = $request->input('acc');
+        // $pw = $request->input('pw');
+        // $check = Admin::where('acc', $acc)->where('pw', $pw)->count();
+        // if ($check) {
+        //     return redirect('/admin');
+        // }
+        // return redirect('/login')->with('error', '帳號或密碼錯誤！');
+
+        $userInfo = [
+            'acc' => $request->input('acc'),
+            'password' => $request->input('pw'),
+        ];
+        if (Auth::attempt($userInfo)) {
+            return redirect('/admin');
+        }
+        return redirect('/login')->with('error', '帳號或密碼錯誤！');
     }
 
     /**
@@ -168,7 +195,7 @@ class AdminController extends HomeController
     {
         //
         $admin = Admin::find($id);
-        if ($admin->pw != $request->input('pw')) {
+        if ($admin->pw != Hash::make($request->input('pw'))) {
             $admin->pw = Hash::make($request->input('pw'));
             $admin->save();
         }

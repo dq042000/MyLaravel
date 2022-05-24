@@ -30,6 +30,8 @@
                     @case('textarea')
                         @include('layouts.textarea', $row)
                         @break
+                    @default
+                        {!! nl2br($row['text']) !!}
                 @endswitch
               </td>
             </tr>

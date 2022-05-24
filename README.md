@@ -50,7 +50,7 @@ docker-compose up -d --build
 ## 安裝 php library
 
 ```
-docker exec -ti mylaravel_php_1 composer install
+docker exec -ti my-project-01_php-fpm_1 composer install
 ```
 
 ## 設定 Laravel
